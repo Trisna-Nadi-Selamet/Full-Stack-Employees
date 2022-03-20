@@ -10,7 +10,15 @@ app.listen(3000, () => {
   console.log('app is running');
 }); //port server
 
-sequelize.sync({ force: true }).then(() => console.log('database Ready')); //check database
+sequelize.sync({ force: true }).then(async () => {
+  for (let i = 1; i <= 25; i++) {
+    const user = {
+      username: `user${i}`,
+      password: `1234`,
+    };
+    await User.create(user);
+  }
+}); //check database
 
 //end point post insert data
 app.post('/users', (req, res) => {
@@ -19,10 +27,33 @@ app.post('/users', (req, res) => {
   });
 });
 
-//end point get all data
+//end point get all data and find countAll
 app.get('/users', async (req, res) => {
-  const users = await User.findAll();
-  res.send(users);
+  const pageAsNumber = Number.parseInt(req.query.page);
+  const sizeAsNumber = Number.parseInt(req.query.size);
+
+  let page = 0;
+
+  if (!Number.isNaN(pageAsNumber) && pageAsNumber > 0) {
+    page = pageAsNumber;
+  }
+
+  let size = 10;
+
+  if (!Number.isNaN(sizeAsNumber) && sizeAsNumber > 0 && sizeAsNumber < 10) {
+    size = sizeAsNumber;
+  }
+
+  //const users = await User.findAll(); //get all data
+  const users = await User.findAndCountAll({
+    limit: size,
+    offset: page * size,
+  });
+  //  res.send(users);
+  res.send({
+    content: users.rows,
+    totalpage: Math.ceil(users.count / size),
+  });
 });
 
 //end point get :id data
