@@ -1,7 +1,13 @@
 const express = require('express');
-const sequelize = require('./database'); //import db
-//const User = require('./User'); //import name class database
-const User = require('./User');
+const sequelize = require('./src/model/database'); //import db
+const User = require('./src/model/User');
+const Employees = require('./src/model/Employees');
+const thisRunRequest = require('./src/logs/LoggerRequest');
+const pagination = require('./src/helper/pagination');
+//middleware
+const idNumber = require('./src/middleware/idNumber');
+const UserRouter = require('./src/router/userRouter');
+const EmployeesRouter = require('./src/router/employeesRouter');
 
 const app = express();
 app.use(express.json());
@@ -11,70 +17,33 @@ app.listen(3000, () => {
 }); //port server
 
 sequelize.sync({ force: true }).then(async () => {
-  for (let i = 1; i <= 25; i++) {
+  for (let i = 1; i <= 5; i++) {
     const user = {
       username: `user${i}`,
       password: `1234`,
     };
     await User.create(user);
+    const employees = {
+      name: `user${i}`,
+      section: `staff`,
+      address: `jakarta`,
+      //userId: `user${i}`,
+    };
+    await Employees.create(employees);
   }
 }); //check database
 
-//end point post insert data
-app.post('/users', (req, res) => {
-  User.create(req.body).then(() => {
-    res.send('user in insered');
+app.use(thisRunRequest);
+app.use(UserRouter);
+app.use(EmployeesRouter);
+
+//handling function
+app.use((err, req, res, next) => {
+  return res.status(err.status).send({
+    status: err.status,
+    errmessage: err.errmessage,
+    message: err.message,
+    timestamp: Date.now(),
+    path: req.originalUrl,
   });
-});
-
-//end point get all data and find countAll
-app.get('/users', async (req, res) => {
-  const pageAsNumber = Number.parseInt(req.query.page);
-  const sizeAsNumber = Number.parseInt(req.query.size);
-
-  let page = 0;
-
-  if (!Number.isNaN(pageAsNumber) && pageAsNumber > 0) {
-    page = pageAsNumber;
-  }
-
-  let size = 10;
-
-  if (!Number.isNaN(sizeAsNumber) && sizeAsNumber > 0 && sizeAsNumber < 10) {
-    size = sizeAsNumber;
-  }
-
-  //const users = await User.findAll(); //get all data
-  const users = await User.findAndCountAll({
-    limit: size,
-    offset: page * size,
-  });
-  //  res.send(users);
-  res.send({
-    content: users.rows,
-    totalpage: Math.ceil(users.count / size),
-  });
-});
-
-//end point get :id data
-app.get('/users/:id', async (req, res) => {
-  const requestId = req.params.id;
-  const users = await User.findOne({ where: { id: requestId } });
-  res.send(users);
-});
-
-//end point update data
-app.put('/users/:id', async (req, res) => {
-  const requestId = req.params.id;
-  const users = await User.findOne({ where: { id: requestId } });
-  users.username = req.body.username;
-  await users.save();
-  res.send('update');
-});
-
-//end point delete data
-app.delete('/users/:id', async (req, res) => {
-  const requestId = req.params.id;
-  await User.destroy({ where: { id: requestId } });
-  res.send('removed');
 });
