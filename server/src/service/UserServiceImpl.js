@@ -29,9 +29,15 @@ const getUserId = async (id) => {
   return users;
 };
 
-const updateUser = async (id, body) => {};
+const updateUser = async (id, body) => {
+  const users = await User.findOne({ where: { id: id } });
+  users.username = body.username;
+  await users.save();
+};
 
-const deleteUser = async (id) => {};
+const deleteUser = async (id) => {
+  await User.destroy({ where: { id: id } });
+};
 
 module.exports = {
   create,

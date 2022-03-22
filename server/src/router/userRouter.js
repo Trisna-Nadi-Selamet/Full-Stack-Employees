@@ -55,18 +55,19 @@ router.get('/users/:id', idNumber, async (req, res, next) => {
 
 //end point update data
 router.put('/users/:id', idNumber, async (req, res) => {
-  const id = req.params.id;
-  const users = await User.findOne({ where: { id: id } });
-  users.username = req.body.username;
-  await users.save();
-  res.send('update');
+  try {
+    await UserServiceImpl.updateUser(req.params.id, req.body);
+    res.send('Update Done');
+  } catch (error) {
+    res.send(err);
+  }
 });
 
 //end point delete data
 router.delete('/users/:id', idNumber, async (req, res) => {
-  const id = req.params.id;
-  await User.destroy({ where: { id: id } });
-  res.send('removed');
+  await UserServiceImpl.deleteUser(req.params.id);
+  //await User.destroy({ where: { id: id } });
+  res.send('Removed Done');
 });
 
 module.exports = router;

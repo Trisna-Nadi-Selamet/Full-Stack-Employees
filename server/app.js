@@ -34,6 +34,7 @@ sequelize.sync({ force: true }).then(async () => {
 }); //check database
 
 app.use(thisRunRequest);
+
 app.use(UserRouter);
 app.use(EmployeesRouter);
 
