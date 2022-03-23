@@ -6,11 +6,14 @@ Cretion protfolio for employees :
 # RestFull API { GET,POST,UPDATE,DELETE } on a data that will be processed to the server side or database posgreSQL.
 # Logger original URL method.
 # My folder Back End Development :
+- config
 - helper
 - middleware
 - model
 - router
 - service
+  -index File and app File
+  
 # Develop function Javascript ErwFunction,Async Await,Logic
 # Function NOT FOUND and Validation
 # Arcithecture Status Code.
