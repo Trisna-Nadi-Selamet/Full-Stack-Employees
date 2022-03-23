@@ -1,9 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const pagination = require('../helper/pagination');
+const pagination = require('../helper/Pagination');
 const idNumber = require('../middleware/idNumber');
-
-const User = require('../model/User');
 const UserServiceImpl = require('../service/UserServiceImpl');
 
 //end point post insert data
@@ -65,9 +63,13 @@ router.put('/users/:id', idNumber, async (req, res) => {
 
 //end point delete data
 router.delete('/users/:id', idNumber, async (req, res) => {
-  await UserServiceImpl.deleteUser(req.params.id);
-  //await User.destroy({ where: { id: id } });
-  res.send('Removed Done');
+  try {
+    await UserServiceImpl.deleteUser(req.params.id);
+    //await User.destroy({ where: { id: id } });
+    res.send('Removed Done');
+  } catch (error) {
+    res.send(error);
+  }
 });
 
 module.exports = router;
