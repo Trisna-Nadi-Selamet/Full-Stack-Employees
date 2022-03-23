@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const NotFoundException = require('../helper/NotFoundException');
-const pagination = require('../helper/pagination');
+const pagination = require('../helper/Pagination');
 const idNumber = require('../middleware/idNumber');
 const Employees = require('../model/Employees');
 const EmployeesServiceImpl = require('../service/EmployeesServiceImpl');

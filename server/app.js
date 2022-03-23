@@ -1,12 +1,13 @@
 const sequelize = require('./src/config/database');
 const User = require('./src/model/User');
 const Employees = require('./src/model/Employees');
-const app = require('./src');
+const app = require('./src/index');
 
 sequelize.sync({ force: true }).then(async () => {
   for (let i = 1; i <= 5; i++) {
     const user = {
       username: `user${i}`,
+      email: `user${i}@gmail.com`,
       password: `1234`,
     };
     await User.create(user);

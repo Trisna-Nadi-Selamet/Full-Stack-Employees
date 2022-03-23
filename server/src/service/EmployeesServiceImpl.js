@@ -1,4 +1,4 @@
-const pagination = require('../helper/pagination');
+const pagination = require('../helper/Pagination');
 const Employees = require('../model/Employees');
 const getEmployees = async (pagination) => {
   const { page, size } = pagination;
