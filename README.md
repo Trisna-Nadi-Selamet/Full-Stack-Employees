@@ -1,7 +1,7 @@
 # Full-Stack-Employees
 
 
-<code><img height="1000" src="https://github.com/Trisna-Nadi-Selamet/Full-Stack-Employees/blob/created_express_sequelize/server/src/asset/Employees.png"></code>
+<code><img height="500" src="https://github.com/Trisna-Nadi-Selamet/Full-Stack-Employees/blob/created_express_sequelize/server/src/asset/Employees.png"></code>
 
 Struktur data node JS, Express , Sequelize Back End Development
 
