@@ -1,7 +1,9 @@
 # Full-Stack-Employees
 
-
-<code><img height="500" src="https://github.com/Trisna-Nadi-Selamet/Full-Stack-Employees/blob/created_express_sequelize/server/src/asset/Employees.png"></code>
+# RDBMS :
+<code><img height="400" src="https://github.com/Trisna-Nadi-Selamet/Full-Stack-Employees/blob/created_express_sequelize/server/src/asset/Employees.png"></code>
+# ENVERIONMENT :
+<code><img height="400" src="https://github.com/Trisna-Nadi-Selamet/Full-Stack-Employees/blob/created_express_sequelize/server/src/asset/Enverionment.png"></code>
 
 Struktur data node JS, Express , Sequelize Back End Development
 
@@ -19,11 +21,11 @@ Sourche -index File and app File
   
   
 # Develop function Javascript ErwFunction,Async Await,Logic
-# Function NOT FOUND and Validation
+# Function NOT FOUND and Validation-Express
+# Arcithecture Status Code.
 # Arcithecture Status Code.
 
 # Desc Project : "This Employees Login , Registered and Checker on Salary For Aplication WEB"
-
 
 Struktur data node JS Front End Development
 # React JS
