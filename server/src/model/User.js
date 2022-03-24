@@ -1,5 +1,7 @@
+'use strict';
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const Employees = require('./Employees');
 
 class User extends Model {}
 
@@ -21,5 +23,5 @@ User.init(
     timestamps: false,
   }
 );
-
+Employees.belongsTo(User);
 module.exports = User;

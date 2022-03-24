@@ -3,6 +3,8 @@ const User = require('./src/model/User');
 const Employees = require('./src/model/Employees');
 const app = require('./src/index');
 
+const UserServiceImpl = require('./src/service/UserServiceImpl');
+
 sequelize.sync({ force: true }).then(async () => {
   for (let i = 1; i <= 5; i++) {
     const user = {
@@ -15,7 +17,6 @@ sequelize.sync({ force: true }).then(async () => {
       name: `user${i}`,
       section: `staff`,
       address: `jakarta`,
-      //userId: `user${i}`,
     };
     await Employees.create(employees);
   }
